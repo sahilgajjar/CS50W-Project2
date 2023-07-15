@@ -1,0 +1,45 @@
+{% extends "auctions/layout.html" %}
+{% block body %}
+
+    <form method="post" action="{% url 'category' %}">
+        {% csrf_token %}
+        <select name="category">
+            {% for category in categories %} 
+                <option value="{{ category.category }}">{{ category.category }}</option>
+            {% endfor %}
+        </select>
+        <hr>
+        <input type="submit" value="submit">
+    </form>
+    <br> 
+
+    {% if listings == False %}
+        <h6>Not any listings made yet!</h6>
+    {% elif listings == True %}
+        <h6>Please select a category!</h6>
+    {% else %}
+
+        {% if listings|length != 0 %}
+        <div class="grid-container">
+        <h6>Here are the all listings for {{ current }}</h6>
+                {% for l in listings %}  
+                {% if l.isActive == True %}
+                    <div class="grid-item">
+                        <div class="image-div"> 
+                               <img src="{{ l.url }}" alt="image" id="image"> 
+                        </div>
+                        <div class="content-div">
+                             <h5><a href="{% url 'listing_page' l.id %}"> <strong>{{ l.listing }}</strong> </a></h5>
+                             <h6> <b> Price : {{ l.starting_bid_amount }} rs. </b> </h6>
+                        </div>
+                    </div> 
+                {% else %}
+                {% endif %}
+
+                {% endfor %}
+        {% else %}
+        <h6>Not any active listing for this category {{ current }}.</h6>
+        {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

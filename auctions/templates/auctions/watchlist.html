@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <h2>Active Listings</h2>
+    <div class="grid-container">
+
+        {% for listing in listings %}  
+            <div class="grid-item">
+                <div class="image-div"> 
+                       <img src="{{ listing.url }}" alt="image" id="image"> 
+                </div>
+                <div class="content-div">
+                     <h5><a href="{% url 'listing_page' listing.id %}"> <strong>{{ listing.listing }}</strong> </a></h5>
+                     <h6> <b> Price : {{ listing.starting_bid_amount }} rs. </b> </h6>
+                </div>
+            </div> 
+
+        {% empty %}
+        <p>No listing in watchlist</p>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

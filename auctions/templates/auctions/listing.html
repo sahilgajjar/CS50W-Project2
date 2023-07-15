@@ -1,0 +1,172 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="listing-top-container">
+
+        <div class="name-container">
+            Listing :  {{ listing.listing }}
+        </div>
+    
+        <!-- watchlist section -->
+        {% if close %}
+        <!-- do nothing -->
+        {% else %}
+
+            <div class="watchlist-container">
+
+                {% if request.user.is_authenticated %}
+
+                    {% if watchlist == False %}
+                        <form method="post" action="{% url 'watchlist_add' listing.id %}">
+                            {% csrf_token %}
+                            <input type="submit" value="add to watchlist" class="watchlist-button-blue">
+                        </form>
+
+                    {% else %}
+                        <form method="post" action="{% url 'watchlist_remove' listing.id %}">
+                            {% csrf_token %}
+                            <input type="submit" value="remove from watchlist" class="watchlist-button-red">
+                        </form>
+
+                    {% endif %} 
+                {% else %} 
+                {% endif %}
+                
+            </div>
+
+        {% endif %}
+        <!-- end of watchlist section --> 
+    </div>
+
+    <div class="image-container-listing">
+        <img src="{{ listing.url }}" alt="image" width="350px"> 
+    </div> 
+    
+    <!-- listing amount and bid details -->
+    <div class="description">{{ listing.description }}</div>
+    
+    {% if listing.current_bid_amount %}
+        <h4 class="price"> <strong>{{ listing.current_bid_amount }} <span>&#8377;</span> </strong> </h4>
+    {% else %}
+        <h4 class="price"> <strong>{{ listing.starting_bid_amount }} <span>&#8377;</span> </strong> </h4>
+    {% endif %}
+    
+    {% if bid == None %}
+        <ul>
+            <li>Not any bid made yet</li>
+        </ul>
+    {% elif not close %}
+        <ul>
+            <li>Last bid : {{ bid.bid_amount }} by {{ bid.user }} </li>
+        </ul> 
+    {% endif %}
+    <!-- end of details -->
+
+    <!-- check for is_authenticated user -->
+    {% if request.user.is_authenticated%}
+        
+        <!-- check for the winner -->
+        {% if close %}
+            {% if not bid.user %}
+            <div>
+                No one has win this bid.  
+            </div>
+            {% elif request.user == bid.user %}
+                <div class="bid-winner-card">
+                    <h6> 🎉🎉🎉 you win this bid for {{ bid.bid_amount }}</h6>
+                </div>
+            {% else %}
+                <div class="bid-winner-card">
+                    <h6>{{ bid.user }} win this bid for {{ bid.bid_amount }} 🥳🥳🥳 </h6>
+                </div>
+            
+            {% endif %}
+        
+        <!-- check if the user is the one who created it -->
+        {% elif listing.owner == request.user %}
+
+            <form method="post" action="{% url 'close' listing.id %}">
+                {% csrf_token %}
+                <h5>You created this bid</h5>
+                <input type="submit" value="close" class="close-button-red">
+            </form>
+        <!-- is there any bid after current user -->    
+        {% elif yours %}
+             <div class="bid-present-container">
+                 Not any new bid after yours
+             </div>
+
+            <div class="details-container">
+                <h4>Details</h4>
+                <div>
+                    <ul>
+                        <li>Placed by : {{ listing.owner }}</li>
+                        <li>Category  : {{ listing.category }}</li>
+                    </ul>
+                </div>
+            </div>
+
+        {% else %}
+        <!-- palce bid button -->
+            <div class="bid-form-container">
+                
+                {% if bid.user == request.user %}
+                    <div class="placed_box">
+                        Bid Placed 
+                    </div>
+                {% else %}
+                    <form method="post" action="{% url 'listing_page' listing.id %}">
+                        
+                        {% csrf_token %}
+                        <input type="number" name="bid" min="{{ min_value }}" placeholder="Bid" class="textfield">
+                        <input type="submit" value="Place Bid">
+
+                    </form>
+                {% endif %}
+            </div>
+        <!-- end -->
+
+        <!-- details -->
+            <hr>
+            <div class="details-container">
+                <h4>Details</h4>
+                <div>
+                    <ul>
+                        <li>Placed by : {{ listing.owner }}</li>
+                        <li>Category  : {{ listing.category }}</li>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+        <!-- end -->
+        
+        <hr>
+        <!-- comments --> 
+        <div class="comment-container">
+            
+            <div class="comment-form-box">
+                <form method="post" action={% url 'comment' listing.id %}>
+                    {% csrf_token %}
+                    <textarea class="form-textbox" rows="1" cols="120" placeholder="comment" name="comment"></textarea>
+                    <input class="form-button" type="submit" value="comment" style="display:block">
+                </form>
+            </div>
+
+        
+            {% for comment in comments %}
+                <div class="comment-box">
+                    <dl>
+                        <dt> {{ comment.user }} :  </dt>
+                        <dd> {{ comment.comment }}</dd>
+                    </dl>
+                </div>
+            {% empty %}
+            {% endfor %}
+            <!-- previous comments -->
+            <!--TODO-->
+        </div>
+
+    {% else %}
+    {% endif %}
+{% endblock %}
+

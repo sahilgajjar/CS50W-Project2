@@ -1,0 +1,175 @@
+body {
+    padding: 10px;
+}
+
+.placed_box {
+    border: 0.5px solid gray;
+    background-color: #34a853;
+    width: 90px;
+    padding: 4px;
+    color: white;
+    border-radius: 5px;
+}
+.form-contorl {
+    font-family: Sans-serif;
+}
+
+.form-group {
+    font-family: Sans-serif;
+}
+
+.grid-container {
+    display:grid;
+    grid-template-columns: repeat(1, minmax(240px, 1fr));
+}
+
+.grid-item {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.image-div {
+    float: left;
+    width: 50%;
+}
+
+.content-div {
+    float: left;
+    width: 50%;
+} 
+
+#image {
+    width: 250px;
+}
+
+.form-field {
+    display: block;
+    width: 75%;
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+    
+.form-container-submit {
+    margin: 20px;
+    text-align: center;
+}
+
+.listing-top-container{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.listing-top-container div{
+}
+
+.watchlist-button-blue{
+    background-color: #67b0ff;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.watchlist-button-red{
+    background-color: #ea4335;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.name-container{
+    font-size: 28px; 
+    font-weight: 600;
+    padding: 5px;
+}
+
+.image-container-listing{
+    border: 1px solid gray;
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px;
+    
+}
+
+.description {
+    background-color:gray;
+    border: 1px solid gray;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.price {
+    font-weight: normal;
+}
+
+.textfield {
+    width: 100%; 
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 4px;
+}
+
+.bid-present-container {
+    background-color: green;
+    color: white;
+    font-size: 16px;
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.comment-form-box {
+    display: flex;
+    margin: auto;
+    font-family: Arial;
+}
+
+.form-textbox {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px;
+}
+
+.form-button {
+    margin: 10px;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.comment-box {
+    font-family: Arial;
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+    
+}
+
+.bid-winner-card h6 {
+    display: inline;
+    background-color: #34a853;
+    border: 0.5px solid gray;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}

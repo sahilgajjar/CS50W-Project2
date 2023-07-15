@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <h2>Active Listings</h2>
+    <div class="grid-container">
+
+        {% for l in listings %}  
+        {% if l.isActive == True %}
+            <div class="grid-item">
+                <div class="image-div"> 
+                       <img src="{{ l.url }}" alt="image" id="image"> 
+                </div>
+                <div class="content-div">
+                     <h5><a href="{% url 'listing_page' l.id %}"> <strong>{{ l.listing }}</strong> </a></h5>
+                     {% if l.current_bid_amount != None %}
+                         <h6>Current Price : {{ l.current_bid_amount }} rs. </h6>
+                     {% else %}
+                         <h6>Current Price : {{ l.starting_bid_amount }} rs. </h6>
+                     {% endif %}
+                     <h6>Owner : {{ l.owner }} </h6>
+                     <br>
+                     <h6>{{ l.description }}</h6>
+                </div>
+            </div> 
+        {% else %}
+        {% endif %}
+
+        {% empty %}
+        <p>No active listing.</p>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
